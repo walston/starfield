@@ -6,41 +6,41 @@ const symbols = [
   ' ', '.', 'o', '+',
   '=', '*', 'B', 'O',
   'X', '@', '%', '&',
-  '#', '/', '^', 'S', 'E'
+  '#', '/', '^'
 ]
 
-let moves = new Array(64)
+let moves = new Array(1024)
 for (let i = 0; i < moves.length; i++) {
-  moves[i] = Math.floor(Math.random() * 4)
+  moves[i] = ["NE", "NW", "SW", "SE"][Math.floor(Math.random() * 4)]
 }
 var board = (new Array(process.stdout.columns * 5)).fill(0)
 var position = Math.floor(board.length / 2)
 
 board[position]++
 for(let i = 0; i < moves.length; i++) {
-  position += movement(moves[i])
-  board[position]++
+  position += movement(position, moves[i])
+  board[position] <= symbols.length ? board[position]++ : null
 }
 
-function movement (direction) {
+function movement(position, direction) {
   let shift = 0;
-  switch (direction) {
-    case 0:
-      shift = -1 - columns
-      break
-    case 1:
-      shift = 1 - columns
-      break
-    case 2:
-      shift = columns + 1
-      break
-    case 3:
-      shift = columns - 1
-      break
-    default:
-      shift = 0
-      break
+
+  // only shift horizontally if not side edges
+  if (position % columns !== 1 && direction[1] !== "W") {
+    shift += 1
   }
+  else if (position % columns !== columns - 1 && direction[1] !== "E") {
+    shift -= 1
+  }
+
+  // only shift vertically if not near top || bottom edge
+  if ((position / columns) > 1 && direction[0] !== "N") {
+    shift -= columns
+  }
+  else if (position / columns < 5 && direction[0] !== "S") {
+    shift += columns
+  }
+
   return shift;
 }
 
