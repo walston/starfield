@@ -2,6 +2,7 @@
 
 const write = process.stdout.write.bind(process.stdout)
 const columns = process.stdout.columns
+const rows = 7
 const symbols = [
   ' ', '.', 'o', '+',
   '=', '*', 'B', 'O',
@@ -11,9 +12,9 @@ const symbols = [
 
 let moves = new Array(1024)
 for (let i = 0; i < moves.length; i++) {
-  moves[i] = ["NE", "NW", "SW", "SE"][Math.floor(Math.random() * 4)]
+  moves[i] = Math.floor(Math.random() * 4)
 }
-var board = (new Array(process.stdout.columns * 5)).fill(0)
+var board = (new Array(process.stdout.columns * rows)).fill(0)
 var position = Math.floor(board.length / 2)
 
 board[position]++
@@ -24,9 +25,10 @@ for(let i = 0; i < moves.length; i++) {
 
 function movement(position, direction) {
   let shift = 0;
+  direction = ["NE", "NW", "SW", "SE"][direction]
 
   // only shift horizontally if not side edges
-  if (position % columns !== 1 && direction[1] !== "W") {
+  if (position % columns !== 0 && direction[1] !== "W") {
     shift += 1
   }
   else if (position % columns !== columns - 1 && direction[1] !== "E") {
@@ -37,7 +39,7 @@ function movement(position, direction) {
   if ((position / columns) > 1 && direction[0] !== "N") {
     shift -= columns
   }
-  else if (position / columns < 5 && direction[0] !== "S") {
+  else if (position / columns < rows && direction[0] !== "S") {
     shift += columns
   }
 
