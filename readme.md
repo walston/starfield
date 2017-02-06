@@ -1,1 +1,1 @@
-[ScreenShot](./screengrab.png)
+![ScreenShot](./screengrab.png)
