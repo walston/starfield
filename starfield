@@ -1,9 +1,10 @@
 #! /usr/bin/env node
-
+const seed = process.argv[2]
 const write = process.stdout.write.bind(process.stdout)
 const columns = process.stdout.columns
 const rows = 7
 const stumble = require('./stumble')(columns, rows)
+const moveSet = require('./moveSet')(seed)
 const symbols = [
   ' ', '.', 'o', '+',
   '=', '*', 'B', 'O',
@@ -11,10 +12,6 @@ const symbols = [
   '#', '/', '^'
 ]
 
-let moveSet = new Array(1024)
-for (let i = 0; i < moveSet.length; i++) {
-  moveSet[i] = Math.floor(Math.random() * 4)
-}
 var board = (new Array(process.stdout.columns * rows)).fill(0)
 var position = Math.floor(board.length / 2)
 
