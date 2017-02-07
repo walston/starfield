@@ -10,16 +10,16 @@ const symbols = [
   '#', '/', '^'
 ]
 
-let moves = new Array(1024)
-for (let i = 0; i < moves.length; i++) {
-  moves[i] = Math.floor(Math.random() * 4)
+let moveSet = new Array(1024)
+for (let i = 0; i < moveSet.length; i++) {
+  moveSet[i] = Math.floor(Math.random() * 4)
 }
 var board = (new Array(process.stdout.columns * rows)).fill(0)
 var position = Math.floor(board.length / 2)
 
 board[position]++
-for(let i = 0; i < moves.length; i++) {
-  position += stumble(position, moves[i])
+for(let i = 0; i < moveSet.length; i++) {
+  position += stumble(position, moveSet[i])
   if (board[position] < symbols.length) {
     board[position] += 1
   }
