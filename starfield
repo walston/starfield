@@ -20,7 +20,9 @@ var position = Math.floor(board.length / 2)
 board[position]++
 for(let i = 0; i < moves.length; i++) {
   position += movement(position, moves[i])
-  board[position] <= symbols.length ? board[position]++ : null
+  if (board[position] < symbols.length) {
+    board[position] += 1
+  }
 }
 
 function movement(origin, direction) {
@@ -48,6 +50,18 @@ function movement(origin, direction) {
   return delta;
 }
 
-write(columns + 'x' + rows + '\n')
-write(board.map( n => symbols[n] ).join(''))
-return write('\n')
+let printout = board.map(n => (symbols[n] || symbols[0]) ).join('')
+
+if (process.env.DEV) {
+  write("DEBUGGING INFORMATION:\n")
+
+  write(`Dimension   : ${rows}x${columns}\n`)
+  write(`Area        : ${rows * columns}\n`)
+  write(`board.length: ${board.length}\n`)
+  write(`prinout     : ${printout.length}\n`)
+  for(let i = columns; i > 0; i--) {
+    write('=')
+  }
+  write('\n')
+}
+write(printout)
