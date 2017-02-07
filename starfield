@@ -23,27 +23,31 @@ for(let i = 0; i < moves.length; i++) {
   board[position] <= symbols.length ? board[position]++ : null
 }
 
-function movement(position, direction) {
-  let shift = 0;
+function movement(origin, direction) {
+  let delta = 0;
   direction = ["NE", "NW", "SW", "SE"][direction]
 
-  // only shift horizontally if not side edges
-  if (position % columns !== 0 && direction[1] !== "W") {
-    shift += 1
+  // if DIRECTION is EAST and ORIGIN is NOT in last column
+  if      (direction[1] === "E" && origin % columns !== columns - 1) {
+    delta += 1
   }
-  else if (position % columns !== columns - 1 && direction[1] !== "E") {
-    shift -= 1
-  }
-
-  // only shift vertically if not near top || bottom edge
-  if ((position / columns) > 1 && direction[0] !== "N") {
-    shift -= columns
-  }
-  else if (position / columns < rows && direction[0] !== "S") {
-    shift += columns
+  // if DIRECTION is WEST and ORIGIN is NOT in first column
+  else if (direction[1] === "W" && origin % columns !== 0) {
+    delta -= 1
   }
 
-  return shift;
+  // if DIRECTION is SOUTH and ORIGIN is NOT in last row
+  if      (direction[0] === "S" && origin / columns < rows - 1) {
+    delta += columns
+  }
+  // if DIRECTION is NORTH and ORIGIN is NOT in first row
+  else if (direction[0] === "N" && origin / columns >= 1) {
+    delta -= columns
+  }
+
+  return delta;
 }
 
-return write(board.map( n => symbols[n] ).join(''))
+write(columns + 'x' + rows + '\n')
+write(board.map( n => symbols[n] ).join(''))
+return write('\n')
