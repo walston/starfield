@@ -19,13 +19,13 @@ var position = Math.floor(board.length / 2)
 
 board[position]++
 for(let i = 0; i < moves.length; i++) {
-  position += movement(position, moves[i])
+  position += stumble(position, moves[i])
   if (board[position] < symbols.length) {
     board[position] += 1
   }
 }
 
-function movement(origin, direction) {
+function stumble(origin, direction) {
   let delta = 0;
   direction = ["NE", "NW", "SW", "SE"][direction]
 
