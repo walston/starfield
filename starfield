@@ -48,6 +48,5 @@ function movement(origin, direction) {
   return delta;
 }
 
-write(columns + 'x' + rows + '\n')
 write(board.map( n => symbols[n] ).join(''))
 return write('\n')
