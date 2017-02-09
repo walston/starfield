@@ -10,10 +10,10 @@ module.exports = (seed) => {
 
   return Array.from(buffer).reduce((accumulator, current) => (
     accumulator.concat([
-      Number((current >> 0) & 3),
-      Number((current >> 2) & 3),
-      Number((current >> 4) & 3),
-      Number((current >> 6) & 3)
+      (current >> 0) & 3,
+      (current >> 2) & 3,
+      (current >> 4) & 3,
+      (current >> 6) & 3
     ])
   ), [])
 }
