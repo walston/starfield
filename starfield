@@ -1,4 +1,7 @@
 #! /usr/bin/env node
+
+console.time('timer')
+
 const seed = process.argv[2]
 const write = process.stdout.write.bind(process.stdout)
 const columns = process.stdout.columns
@@ -27,6 +30,7 @@ if (process.env.DEV) {
   write(`Area        : ${rows * columns}\n`)
   write(`board.length: ${board.length}\n`)
   write(`prinout     : ${printout.length}\n`)
+  console.timeEnd('timer')
   for(let i = columns; i > 0; i--) {
     write('=')
   }
