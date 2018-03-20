@@ -3,15 +3,16 @@
 console.time('timer')
 
 const seed = process.argv[2]
+const dev = process.argv[3]
 const write = process.stdout.write.bind(process.stdout)
-const columns = process.stdout.columns
-const rows = 7
+const columns = 27 
+const rows = 9
 const stumble = require('./stumble')(columns, rows)
 const moveSet = require('./moveSet')(seed)
-// const symbols = " .~+=*!oxOYHX0M&8#".split('')
-const symbols = " ⠐⠌⠕⠭⠮⠽⠿⡷⢿⣿".split('')
+const symbols = " .~+=*!oxOYHX0M&8#".split('')
+// const symbols = " ⠐⠌⠕⠭⠮⠽⠿⡷⢿⣿".split('')
 
-var board = (new Array(process.stdout.columns * rows)).fill(0)
+var board = (new Array(columns * rows)).fill(0)
 var position = Math.floor(board.length / 2)
 
 board[position]++
@@ -22,9 +23,15 @@ for(let i = 0; i < moveSet.length; i++) {
   }
 }
 
-let printout = board.map(n => (symbols[n] || symbols[0]) ).join('')
+let printout = board
+  .map((n, i) => {
+    const sym = symbols[n] || symbols[0]
+    const newline = i % columns === columns - 1 ? '\n' : ''
+    return sym + newline
+  })
+  .join('')
 
-if (process.env.DEV) {
+if (dev) {
   write("DEBUGGING INFORMATION:\n")
 
   write(`Dimension   : ${rows}x${columns}\n`)
