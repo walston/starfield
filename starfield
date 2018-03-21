@@ -3,9 +3,8 @@
 console.time('timer')
 
 const seed = process.argv[2]
-const dev = process.argv[3]
 const write = process.stdout.write.bind(process.stdout)
-const columns = 27 
+const columns = 27
 const rows = 9
 const stumble = require('./stumble')(columns, rows)
 const moveSet = require('./moveSet')(seed)
@@ -31,7 +30,7 @@ let printout = board
   })
   .join('')
 
-if (dev) {
+if (process.env.DEV) {
   write("DEBUGGING INFORMATION:\n")
 
   write(`Dimension   : ${rows}x${columns}\n`)
