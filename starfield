@@ -9,7 +9,7 @@ const rows = 9
 const stumble = require('./stumble')(columns, rows)
 const moveSet = require('./moveSet')(seed)
 const symbols = " .~+=*!oxOYHX0M&8#".split('')
-// const symbols = " ⠐⠌⠕⠭⠮⠽⠿⡷⢿⣿".split('')
+// const symbols = " ⠐⡈⡒⠭⡚⣕⠿⡷⣽⣿".split('')
 
 var board = (new Array(columns * rows)).fill(0)
 var position = Math.floor(board.length / 2)
